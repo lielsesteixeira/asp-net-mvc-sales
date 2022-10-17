@@ -1,0 +1,59 @@
+﻿@model IEnumerable<csharp.Models.Venda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class=" bg-black text-white justify-content-between d-flex">
+    
+    <h1>Produtos</h1>
+    
+<form asp-controller="Vendas" asp-action="Index" method="get">
+        Cliente: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    
+        Produto: <input type="text" name="ProdutoDsc" />
+        <input type="submit" value="Filter" />
+</form>
+
+    <a asp-action="Index"> Voltar para lista </a>
+    <a asp-action="AddOrEdit"> Nova Venda </a>
+
+</div>
+
+<!-- Cards -->
+  <div class="container d-inline-flex flex-wrap align-self-center ">
+    
+    @foreach (var item in Model)
+    {
+    var total = item.QtdVenda * item.VlrUnitarioVenda;
+
+        <div class="card bg-gradient  mb-4" style="width: 16rem; align-items: center; margin-left: 16px;">
+        <div class="card-body">
+            <img class="rounded-circle shadow-1-strong mb-4"
+                src="" alt="avatar"
+                style="width: 100px;" />
+        <h5 class="card-title text-black">
+                @Html.DisplayFor(modelItem => item.Cliente.NnCliente)
+          </h5>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.Produto.DscProduto)
+           </h6>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.QtdVenda)
+           </h6>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.VlrUnitarioVenda)
+           </h6>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.DthVenda)
+           </h6>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.VlrTotalVenda)
+           </h6>
+            <a asp-action="AddOrEdit" asp-route-id="@item.IdVenda">Editar</a> |
+             <a asp-action="Delete" asp-route-id="@item.IdVenda" onclick="return confirm('Deseja realmente deletar?')" >Delete</a>
+        </div>
+    </div>
+    }
+</div>

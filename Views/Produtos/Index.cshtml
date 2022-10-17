@@ -1,0 +1,43 @@
+﻿@model IEnumerable<csharp.Models.Produto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class=" bg-black text-white justify-content-between d-flex">  
+    <h1>Produtos</h1>
+    
+<form asp-controller="Produtos" asp-action="Index">
+    <p>
+       Produto <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+    <a asp-action="Index"> Voltar para lista </a>
+    <a asp-action="AddOrEdit"> Novo Produto </a>
+</div>
+
+<!-- Cards -->
+  <div class="container d-inline-flex flex-wrap align-self-center ">
+  @foreach (var item in Model)
+{
+
+        <div class="card bg-gradient  mb-4" style="width: 16rem; align-items: center; margin-left: 16px;">
+        <div class="card-body">
+            <img class="rounded-circle shadow-1-strong mb-4"
+                src="" alt="avatar"
+                style="width: 100px;" />
+        <h5 class="card-title text-black">
+                @Html.DisplayFor(modelItem => item.DscProduto)
+          </h5>
+        <h6 class="card-subtitle mb-2 text-dark">
+                @Html.DisplayFor(modelItem => item.VlrUnitario)
+           </h6>
+            <a asp-action="AddOrEdit" asp-route-id="@item.IdProduto">Editar</a> |
+             <a asp-action="Delete" asp-route-id="@item.IdProduto" onclick="return confirm('Deseja realmente deletar?')" >Delete</a>
+        </div>
+    </div>
+    }
+</div>
+
+

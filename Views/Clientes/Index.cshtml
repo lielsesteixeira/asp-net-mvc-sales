@@ -1,0 +1,44 @@
+﻿@model IEnumerable<csharp.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class=" bg-black text-white justify-content-between d-flex">
+    <h1>Clientes</h1>
+
+<form asp-controller="Clientes" asp-action="Index" id="search">
+    <p>
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+    <a asp-action="Index"> Voltar para lista </a>
+    <a asp-action="AddOrEdit"> Novo Cliente </a>
+
+</div>
+
+<!-- Cards -->
+  <div class="container d-inline-flex flex-wrap align-self-center " id="gridCustomers">
+  @foreach (var item in Model)
+{
+
+        <div class="card bg-gradient  mb-4" style="width: 16rem; align-items: center; margin-left: 16px;">
+        <div class="card-body">
+            <img class="rounded-circle shadow-1-strong mb-4 "
+                src="../../user.png" alt="avatar"
+                style="width: 100px;"  />
+                
+        <h5 class="card-title text-black">
+            @Html.DisplayFor(modelItem => item.NnCliente)
+        </h5>
+        <h6 class="card-subtitle mb-2 text-dark">
+            @Html.DisplayFor(modelItem => item.Cidade)
+        </h6>
+            <a class="card-link" asp-action="AddOrEdit" asp-route-id="@item.IdCliente">Editar</a> |
+            <a class="card-link" asp-action="Delete" asp-route-id="@item.IdCliente" onclick="return confirm('Deseja realmente deletar?')" >Delete</a>
+        </div>
+    </div>
+    }
+</div>
